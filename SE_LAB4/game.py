@@ -19,8 +19,24 @@ def ship_color(fuel_ratio):
 
 
 def on_landing(score):
-    """Called after a successful landing with the points just earned; add fireworks or bonuses here."""
-    pass
+    """Called after a successful landing with the points just earned; triggers sound effects."""
+    if not pygame.mixer.get_init():
+        return
+    # High pad multiplier score triggers a higher pitch fanfare
+    freq = 880 if score >= 600 else 440
+    duration = 0.15
+    sample_rate = 22050
+    n_samples = int(sample_rate * duration)
+    buf = bytearray()
+    for i in range(n_samples):
+        t = i / sample_rate
+        val = int(127 + 127 * math.sin(2 * math.pi * freq * t))
+        buf.append(max(0, min(255, val)))
+    try:
+        sound = pygame.mixer.Sound(buffer=bytes(buf))
+        sound.play()
+    except Exception:
+        pass
 
 
 def bonus_life_threshold():
