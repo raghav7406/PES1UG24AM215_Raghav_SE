@@ -22,7 +22,6 @@ def on_landing(score):
     """Called after a successful landing with the points just earned; triggers sound effects."""
     if not pygame.mixer.get_init():
         return
-    # High pad multiplier score triggers a higher pitch fanfare
     freq = 880 if score >= 600 else 440
     duration = 0.15
     sample_rate = 22050
@@ -41,7 +40,7 @@ def on_landing(score):
 
 def bonus_life_threshold():
     """Return a score value at which the player earns an extra life, or None to disable bonus lives."""
-    pass
+    return 1500
 
 
 def make_terrain():
