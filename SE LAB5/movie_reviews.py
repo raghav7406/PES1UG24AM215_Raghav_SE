@@ -43,7 +43,7 @@ def pickFeatured():
 
 
 def reviewId(title, reviewText):
-    return hashlib.md5((title + reviewText).encode()).hexdigest()[:10]
+    return hashlib.sha256((title + review_text).encode()).hexdigest()[:10]
 
 def printAllReviews():
     titles = list(movies)
