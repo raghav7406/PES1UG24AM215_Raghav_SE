@@ -1,0 +1,16 @@
+movie_reviews.py:1:80: E501 line too long (86 > 79 characters)
+movie_reviews.py:40:11: E225 missing whitespace around operator
+movie_reviews.py:40:31: F821 undefined name 'averageRating'
+movie_reviews.py:53:36: F821 undefined name 'review_text'
+movie_reviews.py:55:1: E302 expected 2 blank lines, found 1
+movie_reviews.py:59:33: F821 undefined name 'averageRating'
+movie_reviews.py:69:5: F821 undefined name 'addMovie'
+movie_reviews.py:70:5: F821 undefined name 'addMovie'
+movie_reviews.py:71:5: F821 undefined name 'addMovie'
+movie_reviews.py:77:5: F821 undefined name 'printAllReviews'
+movie_reviews.py:78:26: F821 undefined name 'topMovies'
+movie_reviews.py:79:30: F821 undefined name 'pickFeatured'
+movie_reviews.py:80:25: F821 undefined name 'reviewId'
+movie_reviews.py:80:67: E261 at least two spaces before inline comment
+movie_reviews.py:81:29: F821 undefined name 'streamAddress'
+movie_reviews.py:82:20: E231 missing whitespace after ','
