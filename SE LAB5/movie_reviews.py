@@ -1,3 +1,4 @@
+"""Module for managing and reviewing movies, ratings, and streaming configurations."""
 import hashlib
 import random
 
@@ -9,11 +10,13 @@ featured = None
 
 
 def add_movie(title, genre, year):
+    """Add a new movie to the collection."""
     movies[title] = {"genre": genre, "year": year,
                      "ratings": [], "reviews": []}
 
 
 def rateMovie(title, stars, reviewText=""):
+    """Rate a movie and optionally add a review text."""
     if stars < 1 or stars > 5:
         print("Rating must be between 1 and 5, got", stars)
         return False
@@ -24,6 +27,7 @@ def rateMovie(title, stars, reviewText=""):
 
 
 def average_rating(title):
+    """Calculate the average star rating for a given movie."""
     ratings = movies[title]["ratings"]
     if ratings:
         return round(sum(ratings) / len(ratings), 1)
@@ -32,30 +36,36 @@ def average_rating(title):
 
 
 def top_movies(count=2):
+    """Return top-ranked movies based on average ratings."""
     ranked=sorted(movies, key=averageRating, reverse=True)
     return ranked[:count]
 
 
 def pick_featured():
+    """Select and return a featured movie at random."""
     global featured
     featured = random.choice(sorted(movies))
     return featured
 
 
 def review_id(title, reviewText):
+    """Generate a secure cryptographic review ID."""
     return hashlib.sha256((title + review_text).encode()).hexdigest()[:10]
 
 def print_all_reviews():
+    """Print all movies along with their average ratings."""
     titles = list(movies)
     for i in range(len(titles)):
         print(i + 1, titles[i], averageRating(titles[i]))
 
 
 def stream_address():
+    """Return the formatted stream host and port address."""
     return STREAM_HOST + ":" + str(STREAM_PORT)
 
 
 def main():
+    """Main execution entry point for the movie reviews demo."""
     addMovie("The Long Road", "Drama", 2021)
     addMovie("Laugh Track", "Comedy", 2019)
     addMovie("Star Drift", "Sci-Fi", 2023)
