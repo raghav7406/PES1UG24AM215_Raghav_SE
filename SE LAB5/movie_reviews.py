@@ -8,7 +8,7 @@ movies = {}
 featured = None
 
 
-def addMovie(title, genre, year):
+def add_movie(title, genre, year):
     movies[title] = {"genre": genre, "year": year,
                      "ratings": [], "reviews": []}
 
@@ -23,7 +23,7 @@ def rateMovie(title, stars, reviewText=""):
     return True
 
 
-def averageRating(title):
+def average_rating(title):
     ratings = movies[title]["ratings"]
     if ratings:
         return round(sum(ratings) / len(ratings), 1)
@@ -31,27 +31,27 @@ def averageRating(title):
         return 0.0
 
 
-def topMovies(count=2):
+def top_movies(count=2):
     ranked=sorted(movies, key=averageRating, reverse=True)
     return ranked[:count]
 
 
-def pickFeatured():
+def pick_featured():
     global featured
     featured = random.choice(sorted(movies))
     return featured
 
 
-def reviewId(title, reviewText):
+def review_id(title, reviewText):
     return hashlib.sha256((title + review_text).encode()).hexdigest()[:10]
 
-def printAllReviews():
+def print_all_reviews():
     titles = list(movies)
     for i in range(len(titles)):
         print(i + 1, titles[i], averageRating(titles[i]))
 
 
-def streamAddress():
+def stream_address():
     return STREAM_HOST + ":" + str(STREAM_PORT)
 
 
