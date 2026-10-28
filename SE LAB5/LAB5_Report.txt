@@ -1,0 +1,94 @@
+================================================================================
+                        LAB 5: STATIC CODE ANALYSIS REPORT
+================================================================================
+
+Course: Software Engineering
+Student Name: Raghav
+SRN: PES1UG24AM215
+Repository: PES1UG24AM215_Raghav_SE
+Lab Task: Static Code Analysis using Pylint, Bandit, and Flake8 on movie_reviews.py
+
+--------------------------------------------------------------------------------
+1. EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+Static code analysis was performed on movie_reviews.py to evaluate code quality,
+adhere to PEP 8 style standards, and eliminate security vulnerabilities. Three 
+primary tools were utilized:
+
+- Pylint: Used to measure overall code quality and maintainability standards.
+- Flake8: Used to enforce PEP 8 coding conventions and structural formatting.
+- Bandit: Used to detect common security flaws and insecure coding practices.
+
+Through incremental refactoring, all high and medium security warnings were 
+resolved, PEP 8 compliance was achieved, and the Pylint code score was improved 
+from 3.85/10 to 10.00/10 (exceeding the target score of 9.5).
+
+--------------------------------------------------------------------------------
+2. IDENTIFIED ISSUES AND RESOLUTION SUMMARY TABLE
+--------------------------------------------------------------------------------
+
++------------------------------+-------------------+---------+-------------------------------------------------------------+-----------------------------------------------------------------------------+
+| Issue                        | Tool / Type       | Line(s) | Description                                                 | Fix Approach                                                                |
++------------------------------+-------------------+---------+-------------------------------------------------------------+-----------------------------------------------------------------------------+
+| Insecure Hash Function       | Bandit / Security | ~41     | Use of hashlib.md5 for key generation, vulnerable to        | Replaced hashlib.md5 with the cryptographically secure                      |
+|                              |                   |         | collision attacks (B303).                                   | hashlib.sha256 digest.                                                      |
++------------------------------+-------------------+---------+-------------------------------------------------------------+-----------------------------------------------------------------------------+
+| PEP 8 Naming Violation       | Flake8 / Style    | Multiple| Function names used camelCase (e.g., addMovie, rateMovie)   | Refactored all function names across the module to snake_case               |
+|                              |                   |         | instead of standard snake_case (E802).                      | (e.g., add_movie, rate_movie).                                              |
++------------------------------+-------------------+---------+-------------------------------------------------------------+-----------------------------------------------------------------------------+
+| Missing Docstrings           | Pylint / Quality  | 1, 10...| Missing documentation strings at module and function        | Added explicit docstrings detailing purpose and functionality for the      |
+|                              |                   |         | definitions (C0114, C0116).                                 | module and all internal functions.                                          |
++------------------------------+-------------------+---------+-------------------------------------------------------------+-----------------------------------------------------------------------------+
+| Global State / Style Issues  | Pylint & Flake8   | Various | Variable scoping inconsistencies and missing final newline/ | Enforced consistent variable scoping (MOVIES, FEATURED) and cleaned         |
+|                              |                   |         | block formatting warnings.                                  | trailing spaces and block line gaps.                                        |
++------------------------------+-------------------+---------+-------------------------------------------------------------+-----------------------------------------------------------------------------+
+
+--------------------------------------------------------------------------------
+3. TOOL ANALYSIS & METRICS COMPARISON
+--------------------------------------------------------------------------------
+
+3.1 Pylint
+  - Before Score: 3.85 / 10
+  - After Score:  10.00 / 10 (Target > 9.5 achieved)
+  - Key Improvements: Added docstrings to all functions and module headers, 
+    fixed naming styles, and cleaned execution flows.
+
+3.2 Bandit (Security Scan)
+  - Before: 1 High Severity Warning (MD5 usage in reviewId)
+  - After:  0 Issues Identified (100% clean security check)
+  - Key Improvements: Replaced hashlib.md5() with hashlib.sha256().
+
+3.3 Flake8 (PEP 8 Compliance)
+  - Before: Multiple structural, line-spacing, and function name warnings.
+  - After:  0 Formatting / Style Errors
+  - Key Improvements: Enforced snake_case naming conventions, corrected 
+    spacing around operators, and ensured clean line endings.
+
+--------------------------------------------------------------------------------
+4. DELIVERABLES & COMMIT HISTORY
+--------------------------------------------------------------------------------
+1. Commit 1: "Fix security vulnerability: replace insecure MD5 with SHA-256 (Bandit)"
+2. Commit 2: "Refactor function names to snake_case to comply with PEP 8 (Flake8)"
+3. Commit 3: "Add missing docstrings and optimize code quality to achieve Pylint > 9.5"
+4. Final Commit: "Add before and after static analysis reports and final script"
+
+--------------------------------------------------------------------------------
+5. REFLECTION ANSWERS
+--------------------------------------------------------------------------------
+
+Q1: What is the primary benefit of using static analysis tools before code execution?
+A1: Static analysis allows developers to detect logic bugs, style inconsistencies, 
+    and security flaws early in the software development lifecycle without executing 
+    the code. This reduces debugging overhead and ensures code maintainability 
+    across teams.
+
+Q2: Why should weak cryptographic hashing algorithms like MD5 be avoided?
+A2: MD5 is vulnerable to collision attacks, where two distinct inputs can yield 
+    the exact same hash digest. Modern applications should use secure hashing 
+    mechanisms such as SHA-256 to guarantee data integrity and security.
+
+Q3: How does automated code checking (Pylint / Flake8) improve team collaboration?
+A3: Automated linters enforce consistent styling standards (PEP 8) across the 
+    entire codebase. This ensures uniform readability, eliminates personal 
+    formatting disputes during code reviews, and simplifies onboarding for new 
+    developers.
